@@ -1,0 +1,33 @@
+{
+  "name": "league-api",
+  "version": "1.0.0",
+  "description": "league stuff",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --exec ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chase-league/league-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chase-league/league-api/issues"
+  },
+  "homepage": "https://github.com/chase-league/league-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "pg": "^7.18.2",
+    "ts-node": "^8.7.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.3",
+    "@types/node": "^13.9.2",
+    "@types/pg": "^7.14.3",
+    "nodemon": "^2.0.2",
+    "typescript": "^3.8.3"
+  }
+}

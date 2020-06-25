@@ -4,7 +4,7 @@ const port = 3000
 
 const fetch = require('node-fetch');
 
-let apiKey = ['RGAPI-233706fd-560f-481a-82cc-76516aeeff39'] ;
+let apiKey = [process.env.LEAGUE_KEY] ;
 let summonerName = ['chasino']
 
 // Set up function to get accountId after searching by name, accountID is the key in most other API requests
@@ -17,9 +17,8 @@ async function getId() {
 app.get('/matchlist', async (req, res) => {
   try {
     const result = await getId()
-    console.log(result)
     const response = await fetch('https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + result.accountId + '?api_key=' + apiKey)
-    const matchList = response.json()
+    const matchList = await response.json()
     res.json(matchList)
   } catch (err) {
     console.log(err)

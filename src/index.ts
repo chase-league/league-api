@@ -8,21 +8,24 @@ let apiKey = ['RGAPI-233706fd-560f-481a-82cc-76516aeeff39'] ;
 let summonerName = ['chasino']
 
 // Set up function to get accountId after searching by name, accountID is the key in most other API requests
-function getId() {
-  return fetch('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summonerName + '?api_key=' + apiKey)
-      .then(response => response.json())
-      .then(result =>  result)
+async function getId() {
+  const response = await fetch('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summonerName + '?api_key=' + apiKey)
+  return await response.json()
 }
 
 // using async/await gave me errors so I used this method instead
-app.get('/matchlist', (req, res) =>
-  getId()
-    .then(result => 
-      fetch('https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + result.accountId + '?api_key=' + apiKey)
-        .then(res => res.json())
-        .then(json => res.json(json))
-    )
-);
+app.get('/matchlist', async (req, res) => {
+  try {
+    const result = await getId()
+    console.log(result)
+    const response = await fetch('https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + result.accountId + '?api_key=' + apiKey)
+    const matchList = response.json()
+    res.json(matchList)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
+});
 
 let champions = [
   {
